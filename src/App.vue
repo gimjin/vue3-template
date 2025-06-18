@@ -1,32 +1,21 @@
 <script setup lang="ts">
-import { watch } from 'vue'
-import { usePreferredDark } from '@vueuse/core'
-import AppHeader from '@/components/AppHeader.vue'
-import { useAppInfoStore } from './stores/app-info'
+import { ref } from 'vue'
+import AppHeader from '@/views/app-header/AppHeader.vue'
 
-const appInfoStore = useAppInfoStore()
-console.info(appInfoStore.name, appInfoStore.version)
-
-const isDark = usePreferredDark()
-
-watch(
-  isDark,
-  (dark) => {
-    if (dark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  },
-  { immediate: true },
-)
+const keepAliveInclude = ref<string[]>(['AppHome'])
+// const keepAliveExclude = ref<string[]>([])
 </script>
 
 <template>
   <AppHeader />
   <RouterView v-slot="{ Component }">
-    <KeepAlive>
-      <component :is="Component" />
-    </KeepAlive>
+    <template v-if="Component">
+      <KeepAlive :include="keepAliveInclude">
+        <component :is="Component" />
+      </KeepAlive>
+    </template>
+    <template v-else>
+      <el-skeleton animated />
+    </template>
   </RouterView>
 </template>

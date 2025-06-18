@@ -2,12 +2,38 @@
 <html lang="zh-hans">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>vue3 template</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <span class="loader"></span>
+      <style>
+        .loader {
+          position: absolute;
+          top: calc(50vh - 24px);
+          left: calc(50vw - 24px);
+          width: 48px;
+          height: 48px;
+          border: 5px solid gray;
+          border-bottom-color: transparent;
+          border-radius: 50%;
+          display: inline-block;
+          box-sizing: border-box;
+          animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      </style>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

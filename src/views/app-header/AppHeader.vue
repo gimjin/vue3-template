@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconVue from '@/assets/icon-vue.svg'
+import IconVue from '@/assets/images/icon-vue.svg'
 </script>
 
 <template>

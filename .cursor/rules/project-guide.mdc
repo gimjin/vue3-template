@@ -14,7 +14,7 @@ alwaysApply: false
 - **状态管理**：[Pinia](mdc:https:/pinia.vuejs.org)
 - **路由管理**：[Vue Router](mdc:https:/router.vuejs.org)
 - **UI组件库**：[Element Plus](mdc:https:/element-plus.org)
-- **CSS解决方案**：[UnoCSS](mdc:https:/unocss.dev)、[SASS](mdc:https:/sass-lang.com)
+- **CSS解决方案**：[SASS](mdc:https:/sass-lang.com)
 
 ### 目录结构
 
@@ -31,6 +31,23 @@ src/
 ```
 
 ## 开发规范
+
+### 命名规范
+
+#### 文件和目录命名
+
+- **目录名**：kebab-case（如：`app-header/`）
+- **Vue 组件文件**：PascalCase.vue（如：`AppHeader.vue`）
+- **TypeScript 文件**：kebab-case.ts（如：`user-types.ts`）
+- **SCSS 文件**：kebab-case.scss（如：`global-styles.scss`）
+
+#### 代码内部命名
+
+- **变量/函数**：camelCase（如：`userName`, `handleSubmit()`）
+- **CSS 类名**：kebab-case（如：`.app-header`）
+- **SCSS 变量**：kebab-case（如：`$primary-color`）
+- **类型/接口**：PascalCase（如：`UserProfile`）
+- **常量**：SCREAMING_SNAKE_CASE（如：`API_BASE_URL`）
 
 ### TypeScript规范
 
@@ -77,25 +94,49 @@ const increment = () => count.value++
 
 ### 组件最佳实践
 
-- **组件分类**：
-  - 页面组件：`src/views/`
-  - 通用组件：`src/components/`
+#### 组件分类
 
-- **组件通信**：
-  - Props/Emits：父子组件通信
-  - Provide/Inject：跨层级传递数据
-  - Pinia Store：全局状态管理
+- **页面组件**：`src/views/` - 页面组件和业务组件
+- **通用组件**：`src/components/` - 通用组件（严格准入标准）
 
-- **性能优化**：
-  - 使用`v-memo`缓存列表渲染
-  - 使用`defineAsyncComponent`懒加载组件
-  - 大型列表使用虚拟滚动
+#### 通用组件标准
+
+在 `src/components/` 目录中创建组件需满足以下条件：
+
+1. **完整文档**：包含详细的 JSDoc 注释、Props/Events/Slots 说明和使用示例
+2. **优秀封装**：良好的 API 设计、支持主题定制、完整错误处理、无障碍访问支持
+3. **高复用性**：至少在 3 个不同场景中可复用，无业务逻辑硬编码
+
+**不符合标准的组件请放在 `src/views/` 目录中**
+
+#### 组件通信
+
+- Props/Emits：父子组件通信
+- Provide/Inject：跨层级传递数据
+- Pinia Store：全局状态管理
+
+#### 性能优化
+
+- 使用`v-memo`缓存列表渲染
+- 使用`defineAsyncComponent`懒加载组件
+- 大型列表使用虚拟滚动
 
 ### 样式规范
 
-- 组件样式使用`scoped`属性避免污染
-- 优先使用UnoCSS原子类
-- 全局样式定义在`src/style.scss`中
+#### CSS 使用规范
+
+1. **优先使用Element Plus变量**：
+   - 对于颜色、字体等，优先使用Element Plus提供的CSS变量
+   - 常用变量：`var(--el-color-primary)`, `var(--el-text-color-primary)`, `var(--el-bg-color)`
+
+2. **自定义样式**：
+   - 当Element Plus变量无法满足需求时，可以编写自定义样式
+   - 自定义样式应放在组件的`<style lang="scss" scoped>`块中
+   - 尽量使用SCSS变量和嵌套语法保持代码整洁
+
+3. **全局样式**：
+   - 全局样式定义在`src/style.scss`中
+   - 避免过多全局样式，优先使用组件级样式
 
 ## 工作流程
 
@@ -124,7 +165,6 @@ const increment = () => count.value++
 - [vite.config.ts](mdc:vite.config.ts)：Vite配置，包含插件、别名和代理
 - [tsconfig.json](mdc:tsconfig.json)：TypeScript配置
 - [package.json](mdc:package.json)：依赖和脚本定义
-- [uno.config.ts](mdc:uno.config.ts)：UnoCSS配置
 
 ### 环境要求
 

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
-import axios from 'axios'
-import { apis } from '@/request'
+import { useUserInfoStore } from '@/stores/user-info'
+
+const userInfoStore = useUserInfoStore()
 
 onMounted(async () => {
   try {
-    const res = await axios.get(apis.getUserInfo)
-    console.info(res)
+    await userInfoStore.setUserInfo()
   } catch (error) {
     console.error(error)
   }
@@ -15,7 +15,7 @@ onMounted(async () => {
 
 <template>
   <div class="app-home">
-    <h1 class="cursor-pointer hover:text-red">Home</h1>
+    {{ userInfoStore.name || 'User' }}
   </div>
 </template>
 
