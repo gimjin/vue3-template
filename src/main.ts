@@ -6,9 +6,10 @@ import router from './router'
 import ElementPlus from 'element-plus'
 import { usePreferredDark } from '@vueuse/core'
 
-import './style.scss'
+import 'minireset.css'
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
+import './style.scss'
 
 setupAxios()
 
